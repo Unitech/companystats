@@ -1,0 +1,27 @@
+
+<script src="/javascripts/index.js"></script>
+<script src="/javascripts/masonry/jquery.masonry.min.js"></script>
+<script src="/javascripts/masonry/js/jquery.infinitescroll.min.js"></script>
+
+
+<section>
+  <div class="page-header">
+    <h1>Company listing</h1>
+  </div>
+
+
+  <div class="row">
+    
+
+    <div id="container">
+      
+      <% for (var i = 0; i < company.length; i++) { %>
+            <% comp = company[i] %>
+	    <%- partial('_unit_product') %>
+<% } %>
+</div>
+</div>
+</section>
+
+
+

@@ -1,0 +1,64 @@
+
+<script src="/javascripts/tools.js"></script>
+
+
+<section>
+  <div class="page-header">
+    <h1>Tools</h1>
+  </div>
+  
+  <% for (var i = 0; i < tools.length; i++) { %>
+  
+<h2><%= tools[i].title %><a href="?!#" style="float : right;" par-id="<%= tools[i].id %>" class="del-toolbox">X</a></h2>
+  <div class="row">
+    
+    <div class="span12">
+      <table class="table table-bordered">
+	<% for (var j = 0; j < tools[i].links.length; j++) { %>
+	<tr>
+	  <td><%= tools[i].links[j].title %></td>
+	  <td>
+	    <a target="_blank" href="<%= tools[i].links[j].link %>">
+	      <%= tools[i].links[j].link %>
+	    </a>
+	    
+	    <a href="?!#" style="float : right;" par-id="<%= tools[i].id %>" attr-id="<%= tools[i].links[j].id %>" class="del-tool">X</a>
+	  </td>
+	</tr>
+	<% } %>
+      </table>
+
+
+      
+    </div>    
+  </div>
+  
+<% } %>
+
+
+<hr/>
+
+<select id="select-theme">
+  <% for (var i = 0; i < tools.length; i++) { %>
+  <option value="<%= tools[i].id %>"><%= tools[i].title %></option>
+    <% } %>
+</select>
+
+<form id="add-link">
+  <input type="text" name="title" id="title"/>
+  <input type="text" name="link" id="link-d"/>
+  <input type="submit" class="btn" value="Add link">
+</form>
+
+
+<form method="post" id="new-toolbox">
+  Name : 
+  <input type="text" name="title" id="tool-title"/>
+  <input type="submit" value="Send"/>
+</form>
+
+  
+
+</section>
+
+

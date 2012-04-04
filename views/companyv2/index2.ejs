@@ -1,0 +1,35 @@
+
+<script src="/javascripts/index.js"></script>
+<script src="/javascripts/masonry/jquery.masonry.min.js"></script>
+<script src="/javascripts/masonry/js/jquery.infinitescroll.min.js"></script>
+
+
+<section>
+  <div class="page-header">
+    <h1>Company listing</h1>
+  </div>
+
+
+  <div class="row">
+    
+
+    <div id="container">
+      
+      <% for (var i = 0; i < company.length; i++) { %>
+      <% comp = company[i] %>
+
+      <% if (comp.image && comp.image.available_sizes[0][1]) { %>
+	<a href="/companyv2/show/<%= comp.permalink %>" title="<%= comp.name %>" target="_blank">
+	  <div class="item transition" data-content="<b>Money Raised</b> : <%= comp.total_money_raised %><br/><b>Founded year</b> : <%= comp.founded_year %> <br/><b>Employees</b> : <%= comp.number_of_employees %><br/><%= comp.description %>" data-original-title="<%= comp.name %>" rel="popover">
+	    <img src="http://crunchbase.com/<%= comp.image.available_sizes[0][1] %>"/>
+	  </div>
+	</a>
+<% } %>
+
+
+<% } %>
+</div>
+</div>
+</section>
+
+
