@@ -7,13 +7,17 @@ a {
   color: #00B7FF;
 }
 
+#container {
+    min-height : 1000px;
+}
+
 .item {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     border : 1px solid #E1E1E8;
-    padding : 10px;
-    margin: 10px;
+    padding : 15px;
+    margin: 5px;
     float: left;
 }
 
@@ -46,4 +50,82 @@ a {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
     outline: 0;
     outline: thin dotted 9;    
+}
+
+.masonry,
+.masonry .masonry-brick {
+  -webkit-transition-duration: 0.7s;
+     -moz-transition-duration: 0.7s;
+       -o-transition-duration: 0.7s;
+          transition-duration: 0.7s;
+}
+
+.brand {
+    font-family: 'Fugaz One', cursive;
+}
+
+.sub-title {
+    font-family: 'Fugaz One', cursive;
+    margin-bottom : 5px;
+}
+
+.masonry {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.masonry .masonry-brick {
+  -webkit-transition-property: left, right, top;
+     -moz-transition-property: left, right, top;
+       -o-transition-property: left, right, top;
+          transition-property: left, right, top;
+}
+
+.spinner {
+
+    margin-top : 500px;
+    display : block;
+    margin : 0 auto;
+    -webkit-animation-name: rotateThis;
+    -webkit-animation-duration:2s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-timing-function:linear;
+}
+
+@-webkit-keyframes rotateThis {
+  from {-webkit-transform:scale(0.5) rotate(0deg);}
+  to {-webkit-transform:scale(0.5) rotate(360deg);}
+} 
+
+.trendy-widget {
+    position : fixed;
+    top : 140px;
+    left : 0%;
+    height : 80px;
+    width : 30px;
+    background-color : black;
+    color : white;
+
+    
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 7px;
+    -moz-border-radius-bottomright: 7px;
+    -moz-border-radius-bottomleft: 0px;
+    -webkit-border-radius: 0px 7px 7px 0px;
+    border-radius: 0px 7px 7px 0px;
+}
+
+.trendy-widget .text {
+    padding-right : 50px;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+
+    writing-mode: tb-rl;
+    filter: flipv fliph;
+
+    writing-mode: tb-rl;
+    white-space: nowrap;
+
 }

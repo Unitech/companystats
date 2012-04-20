@@ -1,102 +1,142 @@
 <script src="/javascripts/show_company.js"></script>
 
-<section>
+<% if (!company.name)
+     company.name = '';
+     if (!company.homepage_url)
+       company.homepage_url =  '' %>
+
+  <section>
+    
+
+    <% if (company.image) { %>
+      <img src="http://crunchbase.com/<%= company.image.available_sizes[0][1] %>" width="80" style="float : right;"/>
+<% } %>
+
+<h1><%= company.name %></h1>
+<br/>
+
+
+
+<div class="subnav sorting-menu">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#newest" class="sort-btn" data-toggle="tab" data-sort="newest">
+	Resume
+      </a>
+    </li>
+
+    <li>
+      <a href="#biggest" class="sort-btn" data-toggle="tab" data-sort="biggest">
+	Website
+      </a>
+    </li>
+
+    <li>
+      <a href="#trendy" class="sort-btn" data-toggle="tab" data-sort="trendy">
+	Social Density
+      </a>
+    </li>
+
+    <li>
+      <a href="#trendy" class="sort-btn" data-toggle="tab" data-sort="trendy">
+	Traffic
+      </a>
+    </li>
+
+  </ul>
+</div>
+
+
+<div class="row">
+
   
-  <div class="page-header">
-    <img src="http://crunchbase.com/<%= company.image.available_sizes[0][1] %>" width="90" style="float : right;"/><h1><%= company.name %></h1>
-  </div>
+  <div class="span12">
+    
+    <%- company.overview %>
+
+    <table class="table table-bordered">
+      <tr>
+	<td>Money raised</td>
+	<td><%= company.total_money_raised %></td>
+      </tr>
+      <tr>
+	<td>Employees</td>
+	<td><%= company.number_of_employees %></td>
+      </tr>
+      <tr>
+	<td>Tag list</td>
+	<td><%= company.tag_list %></td>
+      </tr>
+      <tr>
+	<td>Category code</td>
+	<td><%= company.category_code %></td>
+      </tr>
+      <tr>
+	<td>Alias List</td>
+	<td><%= company.alias_list %></td>
+      </tr>
+      <tr>
+	<td><img src="/images/twitter.png"/> Twitter</td>
+	<td><a target="_blank" href="https://twitter.com/#!/<%= company.twitter_username %>"><%= company.twitter_username %></a></td>
+      </tr>
+      <tr>
+	<td>Founded Year</td>
+	<td><%= company.founded_year %></td>
+      </tr>
+      <tr>
+	<td>Deadpooled Year</td>
+	<td><%= company.founded_year %></td>
+      </tr>
+    </table>
+
+    <hr/>
+    <h2>Website preview</h2>
+    <iframe class="center" src="<%= company.homepage_url %>" style="border:1px solid #ccc; padding:10px;" width="940" height="650" frameborder="0" ></iframe>
+    <br/>
 
 
-  <div class="row">
 
     
-    <div class="span12">
+    <hr/>
+    <h2>Social Mention</h2>
+    <iframe class="center" src="http://www.socialmention.com/search?q=<%= company.name %>&t=all&btnG=Search" style="border:1px solid #ccc; padding:10px;" width="940" height="950" frameborder="0" ></iframe>
+    <br/>
+
+    <hr/>
+    <h2>LinkedIN Search</h2>
+    <iframe class="center" src="http://www.linkedin.com/csearch/results?type=companies&keywords=<%= company.name %>" style="border:1px solid #ccc; padding:10px;" width="940" height="950" frameborder="0" ></iframe>
+    <br/>
+
+
+    <hr/>
+    <h2>Search Trends for keyword <%= company.name %></h2>
+    <br/>
+    <iframe class="center" src="http://www.gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/trends_gadget.xml&amp;source=imag&amp;up_is_init=true&amp;up_cur_term=<%= company.name %>&amp;" style="border:1px solid #ccc; padding:10px;" width="940" height="250" frameborder="0" scrolling="no"></iframe>
     
-      <%- company.overview %>
 
-      <table class="table table-bordered">
-	<tr>
-	  <td>Money raised</td>
-	  <td><%= company.total_money_raised %></td>
-	</tr>
-	<tr>
-	  <td>Employees</td>
-	  <td><%= company.number_of_employees %></td>
-	</tr>
-	<tr>
-	  <td>Tag list</td>
-	  <td><%= company.tag_list %></td>
-	</tr>
-	<tr>
-	  <td>Category code</td>
-	  <td><%= company.category_code %></td>
-	</tr>
-	<tr>
-	  <td>Alias List</td>
-	  <td><%= company.alias_list %></td>
-	</tr>
-	<tr>
-	  <td>Twitter</td>
-	  <td><a target="_blank" href="https://twitter.com/#!/<%= company.twitter_username %>"><%= company.twitter_username %></a></td>
-	</tr>
-	<tr>
-	  <td>Founded Year</td>
-	  <td><%= company.founded_year %></td>
-	</tr>
-	<tr>
-	  <td>Deadpooled Year</td>
-	  <td><%= company.founded_year %></td>
-	</tr>
-      </table>
+    <hr/>
+    <h2>Traffic for <a href="<%= company.homepage_url %>" target="_blank"><%= company.homepage_url %></a></h2>
+    <br/>
 
-      <hr/>
-      <h2>Website preview</h2>
-      <iframe class="center" src="<%= company.homepage_url %>" style="border:1px solid #ccc; padding:10px;" width="940" height="650" frameborder="0" ></iframe>
-      <br/>
+    <a href="http://siteanalytics.compete.com/slacker.com/"><img src="http://siteanalytics.compete.com/embed_chart/<%= company.homepage_url.substring(7) %>/large/" style="border:1px solid #ccc; padding:10px;"/></a>
 
 
+    <!-- <hr/> -->
+    <!-- <h2>Alexa Search</h2> -->
+    <!-- <iframe class="center" src="http://www.alexa.com/siteinfo/<%= company.homepage_url %>" style="border:1px solid #ccc; padding:10px;" width="940" height="400" frameborder="0" ></iframe> -->
+    <!-- <br/> -->
 
-      
-      <hr/>
-      <h2>Social Mention</h2>
-      <iframe class="center" src="http://www.socialmention.com/search?q=<%= company.name %>&t=all&btnG=Search" style="border:1px solid #ccc; padding:10px;" width="940" height="950" frameborder="0" ></iframe>
-      <br/>
-
-      <hr/>
-      <h2>LinkedIN Search</h2>
-      <iframe class="center" src="http://www.linkedin.com/csearch/results?type=companies&keywords=<%= company.name %>" style="border:1px solid #ccc; padding:10px;" width="940" height="950" frameborder="0" ></iframe>
-      <br/>
+    <!-- <hr/> -->
+    <!-- <h2>Google Search</h2> -->
+    <!-- <iframe class="center" src="https://www.google.fr/search?hl=en&q=toto<%= company.name %>" style="border:1px solid #ccc; padding:10px;" width="940" height="500" frameborder="0" ></iframe> -->
+    <!-- <br/> -->
 
 
-      <hr/>
-      <h2>Search Trends for keyword <%= company.name %></h2>
-      <br/>
-      <iframe class="center" src="http://www.gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/trends_gadget.xml&amp;source=imag&amp;up_is_init=true&amp;up_cur_term=<%= company.name %>&amp;" style="border:1px solid #ccc; padding:10px;" width="940" height="250" frameborder="0" scrolling="no"></iframe>
-      
-
-      <hr/>
-      <h2>Traffic for <a href="<%= company.homepage_url %>" target="_blank"><%= company.homepage_url %></a></h2>
-      <br/>
-
-      <a href="http://siteanalytics.compete.com/slacker.com/"><img src="http://siteanalytics.compete.com/embed_chart/<%= company.homepage_url.substring(7) %>/large/" style="border:1px solid #ccc; padding:10px;"/></a>
-
-
-      <hr/>
-      <h2>Alexa Search</h2>
-      <iframe class="center" src="http://www.alexa.com/siteinfo/<%= company.homepage_url %>" style="border:1px solid #ccc; padding:10px;" width="940" height="400" frameborder="0" ></iframe>
-      <br/>
-
-      <hr/>
-      <h2>Google Search</h2>
-      <iframe class="center" src="https://www.google.fr/search?hl=en&q=toto<%= company.name %>" style="border:1px solid #ccc; padding:10px;" width="940" height="500" frameborder="0" ></iframe>
-      <br/>
-
-
-      
-      
-    </div>
+    
     
   </div>
+  
+</div>
 
 </section>
 

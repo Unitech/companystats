@@ -3,8 +3,7 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes');
+var express = require('express');
 var app = module.exports = express.createServer();
 var mongoose = require('mongoose');
 var db = mongoose.connect('mongodb://localhost/crunchbase');
@@ -42,19 +41,14 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
-// Routes
-app.get('/', function(req, res) {
-    res.render('index');
-});
 
 /*
- * Products
+ * Home page
  */
-app.get('/product/list', function(req, res) {
-    var q = Product.find({}).limit(50).sort('_id', 1);
-    
+app.get('/', function(req, res) {
+    var q = PlainCompany.find({}).limit(50).sort('founded_year', -1);
     q.execFind(function(err, docs) {
-	res.render('product/index', {products : docs});	
+	res.render('companyv2/index', { company : docs });
     });
 });
 
@@ -62,14 +56,6 @@ app.get('/product/list', function(req, res) {
 /*
  * Company V2
  */
-app.get('/companyv2/list', function(req, res) {
-    var q = PlainCompany.find({}).limit(50).sort('founded_year', -1);
-    q.execFind(function(err, docs) {
-	res.render('companyv2/index2', { company : docs });
-    });
-});
-
-
 app.get('/companyv2/show/:id', function(req, res) {
     var q = PlainCompany.findOne({'permalink' : req.params.id});    
     q.execFind(function(err, comp) {
@@ -77,11 +63,47 @@ app.get('/companyv2/show/:id', function(req, res) {
     });
 });
 
-
 app.get('/companyv2/ajax', function(req, res) {
-    var q = PlainCompany.find({}).limit(10).sort('founded_year', -1).skip(req.query.offset);
+    var q = PlainCompany.find({}).limit(40).skip(req.query.offset);
+
+    if (req.query.sort == 'newest')
+	q.sort('founded_year', -1);
+    else if (req.query.sort == 'biggest')
+	q.sort('total_money_raised', -1, 'number_of_employees', 1);
+
     q.execFind(function(err, comp) {
 	res.json(comp);
+    });
+});
+
+
+/*
+ * Products
+ */
+app.get('/products', function(req, res) {
+    res.json('ok');
+});
+
+
+
+
+/*
+ * Search bar (with autocomplete jquery)
+ */ 
+app.get('/company/search', function(req, res) {
+    var q = PlainCompany.find({}, ['permalink', 'name']).limit(10);
+    
+    q.where('name').$regex(new RegExp("^" + req.query.term,"i"));
+    q.execFind(function(err, docs) {
+	var res_data = [];
+	docs.forEach(function(doc) {
+	    // Reformat data for autocomplete
+	    res_data.push({
+		label : doc.name, 
+		value : doc.permalink
+	    });
+	});
+	res.json(res_data);
     });
 });
 
@@ -100,55 +122,6 @@ app.get('/companyv2/ajax', function(req, res) {
 // 	res.render('auth');
 //     });
 // });
-
-
-/*
- * ToolBox
- */
-
-app.get('/tools', function(req, res) {
-    var q = Tools.find();
-    q.execFind(function(err, tools) {
-	res.render('tools', {tools : tools});
-    });
-});
-
-app.post('/tools/new', function(req, res) {
-    new Tools(req.body).save(function(dt) {
-	res.json({success : true});
-    });
-});
-
-app.post('/tools/:id/new', function(req, res) {
-    var q = Tools.findOne({"_id" : req.params.id});
-
-    q.execFind(function(err, tools) {
-	tools[0].links.push(req.body);
-	console.log(tools[0]);
-	tools[0].save(function() {
-	    res.json({success : true});
-	});
-    });
-
-});
-
-app.del('/tools/:par_id', function(req, res) {
-    Tools.findById(req.params.par_id, function(err, post) {
-	post.remove();
-	post.save(function(err) {
-	    res.json({success : true});
-	});
-    });
-});
-
-app.del('/tools/:par_id/:id', function(req, res) {
-    Tools.findById(req.params.par_id, function(err, post) {
-	post.links.id(req.params.id).remove();	
-	post.save(function(err) {
-	    res.json({success : true});
-	});
-    });
-});
 
 
 

@@ -6,6 +6,6 @@
       "express": "2.5.8"
     , "ejs": ">= 0.0.1"
       , "mongoose": "< 2.5.0"
-      , "linkedin-js", :">= 0.0.1"
+      , "linkedin-js" :">= 0.0.1"
   }
 }

@@ -53,7 +53,6 @@ function wget (host, path, https, callback) {
 /*
  * Main
  */
-
 function fill_company(offset) {
     var q = Company.find({}).limit(CONCURRENT_CONNECTIONS).sort('_id', 1).skip(offset);
 

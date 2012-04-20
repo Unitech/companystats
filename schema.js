@@ -59,7 +59,10 @@ exports.PlainSchema = new Schema({
     offices : [],
     milestones : [],
     ipo : String,
-    screenshoots : [],
+    screenshoots : [{
+	attribution : String,
+	available_sizes : []
+    }],
     external_links : []    
 });
 

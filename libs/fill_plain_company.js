@@ -108,7 +108,7 @@ eventEmitter.on('heartbeat', function(message){
     if (heartrate == CONCURRENT_CONNECTIONS - MIN_RANGE) {
 	setTimeout(function() {
 	    heartrate = 0;
-	    fill_company(g_offset);	
+	    fill_company(g_offset);
 	}, 20);
     }
 });
