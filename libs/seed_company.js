@@ -20,7 +20,6 @@ var Company = mongoose.model('company', StyleSchema);
 var Product = mongoose.model('product', StyleSchema);
 var FinancialOrganization = mongoose.model('financial-organization', StyleSchema);
 
-
 var http = require('http');
 
 function wget (host, path, https, callback) {
@@ -57,9 +56,7 @@ wget('api.crunchbase.com', '/v/1/companies.js', false, function (atom) {
 	    console.log('Company ' + data.name + ' processed');   
 	});
     });
-
 });
-
 
 /*
  * Products
@@ -78,7 +75,6 @@ wget('api.crunchbase.com', '/v/1/products.js', false, function (atom) {
 	    console.log('Product ' + data.name + ' processed');   
 	});
     });
-
 });
 
 /*
@@ -117,6 +113,3 @@ wget('api.crunchbase.com', '/v/1/financial-organizations.js', false, function (a
 // Company.find({}, function(err, docs) {
 //     console.log(docs);
 // });
-
-
-

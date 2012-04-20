@@ -1,6 +1,7 @@
 var go_offset = 0;
 var $container = null;
 var current_sorting = null;
+var gl_loading = true;
 
 function render_tpl(company) {
     if (!company.image) {
@@ -14,8 +15,8 @@ function render_tpl(company) {
     } catch(e) {
 	screenshot = '';
     }
-    
-    var tpl = '  <a target="_blank" href="/companyv2/show/<%= permalink %>" title="<%= name %>"><div class="item transition" data-content="<b>Founded year</b> : <%= comp.founded_year %> <br/><b>Employees</b> : <%= comp.number_of_employees %><br/><%= comp.description %><br/>" data-original-title="<%= comp.name %>" rel="popover"><img src="http://crunchbase.com/<%= image %>"/></div></a>';
+
+    var tpl = '<a target="_blank" href="/companyv2/show/<%= permalink %>"><div class="item transition" data-content="<b>Founded year</b> : <%= comp.founded_year %> <br/><b>Employees</b> : <%= comp.number_of_employees %><br/><%= comp.description %><br/>" data-original-title="<%= comp.name %>" rel="popover"><img src="http://crunchbase.com/<%= image %>"/></div></a>';
     var compiled = _.template(tpl);
 
     return compiled({
@@ -35,7 +36,14 @@ function add_companies(sort, callback) {
 	    offset : go_offset,
 	    sort : sort
 	},
+	beforeSend : function() {
+	    gl_loading = true;
+	},
 	success : function(data) {	    
+	    setTimeout(function() {
+		gl_loading = false;
+	    }, 400);
+
 	    var rendu = "";
 	    for (var i = 0; i < data.length; i++)
 		rendu += render_tpl(data[i]);
@@ -48,8 +56,13 @@ function add_companies(sort, callback) {
 	    });
 
 	    $container.append(treat);
-	    if (go_offset != 0)
-		$container.masonry('reload');
+
+	    $container.imagesLoaded(function(){
+
+		$container.masonry('appended', treat);
+		if (go_offset != 0)
+		    $container.masonry('reload');
+	    });
 
 	    go_offset += 30;
 	    if (callback) callback();
@@ -104,7 +117,8 @@ $(function() {
     var $win = $(window); 
     $(window).scroll(function() {
 	if ($win.height() + $win.scrollTop() > 
-	    $(document).height() - 100)
-	    add_companies(gl_current_sorting);	
+	    $(document).height() - 100 &&
+	    gl_loading == false)
+	    add_companies(gl_current_sorting, function() {$container.masonry('reload');});	
     });
 });

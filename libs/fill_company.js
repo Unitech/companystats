@@ -88,8 +88,6 @@ fs.readFile('offset', 'ascii', function(err, data){
 /*
  * Avoid too much concurrent connections
  */
-
-
 var exec = require('child_process').exec;
 var sys = require('sys');
 
@@ -105,8 +103,6 @@ eventEmitter.on('heartbeat', function(message){
     }
 });
 
-
-
 process.on('exit', function () {
     console.log('FUCK');
 });
@@ -118,8 +114,4 @@ process.on('SIGINT', function () {
 	console.log('Offset succesfully saved, quitting...');
 	process.exit(code=0)
     });
-
-
 });
-
-

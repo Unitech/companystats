@@ -65,5 +65,3 @@ exports.PlainSchema = new Schema({
     }],
     external_links : []    
 });
-
-

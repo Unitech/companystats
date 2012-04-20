@@ -1,16 +1,7 @@
 
+MAIN = {};
 
-
-$(document).ready(function() {
-    // Autocomplete
-    // $('.search-query').keyup(function() {
-
-    // 	$.getJSON('/company/search', {search : $(this).val()} , function(dt) {
-    // 	    autocomplete_companies = dt;
-    // 	    //console.log(dt);
-    // 	    $('.search-query').data('typeahead').source = dt;
-    // 	});
-    // });
+MAIN.autocomplete = function() {
     var search_bar = $('.search-query');
     
     search_bar.autocomplete({
@@ -23,9 +14,22 @@ $(document).ready(function() {
         },
 	select: function(event, ui){
             search_bar.val(ui.item.label);
+	    // Redirect
 	    window.location = '/companyv2/show/' + ui.item.value;
-            //$('#hidden').val(ui.item.uid);
             return false;
         }
     });
+};
+
+MAIN.trends = function() {
+    $('.trendy-widget').click(function() {
+	console.log('ok');
+    });
+};
+
+$(document).ready(function() {
+    // Autocomplete
+    MAIN.autocomplete();
+    // Trends
+    MAIN.trends();
 });

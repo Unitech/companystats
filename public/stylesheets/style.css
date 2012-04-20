@@ -103,9 +103,9 @@ a {
     position : fixed;
     top : 140px;
     left : 0%;
-    height : 80px;
+    height : 115px;
     width : 30px;
-    background-color : black;
+    background-color : #333;
     color : white;
 
     
@@ -115,17 +115,29 @@ a {
     -moz-border-radius-bottomleft: 0px;
     -webkit-border-radius: 0px 7px 7px 0px;
     border-radius: 0px 7px 7px 0px;
+
+    -webkit-transition: all 200ms linear;
+    -moz-transition: all 200ms linear;
+    -ms-transition: all 200ms linear;
+    -o-transition: all 200ms linear;
+    transition: all 200ms linear;
+    cursor : pointer;
+}
+
+.ui-autocomplete .ui-menu-item:hover {
+    cursor : pointer;
+}
+
+.trendy-widget:hover {
+    padding-left : 20px;
+    width : 30px;
 }
 
 .trendy-widget .text {
-    padding-right : 50px;
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-
-    writing-mode: tb-rl;
-    filter: flipv fliph;
-
-    writing-mode: tb-rl;
-    white-space: nowrap;
-
+    font-weight : bold;
+    padding-top : 5px;
+    padding-left : 10px;
+    padding-right : 18px;
+    width : 10px;
 }
+

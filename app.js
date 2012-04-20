@@ -17,8 +17,6 @@ var schema = require('./schema.js');
 
 var PlainCompany = mongoose.model('plain_company', schema.PlainSchema);
 var Product = mongoose.model('product', schema.StyleSchema);
-// var ToolsLink = mongoose.model('tools_link', schema.ToolsLinksSchema);
-// var Tools = mongoose.model('tools_category', schema.ToolsCategorySchema);
 
 /*
  * Configuration
@@ -41,7 +39,6 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
-
 /*
  * Home page
  */
@@ -51,7 +48,6 @@ app.get('/', function(req, res) {
 	res.render('companyv2/index', { company : docs });
     });
 });
-
 
 /*
  * Company V2
@@ -64,7 +60,7 @@ app.get('/companyv2/show/:id', function(req, res) {
 });
 
 app.get('/companyv2/ajax', function(req, res) {
-    var q = PlainCompany.find({}).limit(40).skip(req.query.offset);
+    var q = PlainCompany.find().limit(40).skip(req.query.offset);
 
     if (req.query.sort == 'newest')
 	q.sort('founded_year', -1);
@@ -76,6 +72,14 @@ app.get('/companyv2/ajax', function(req, res) {
     });
 });
 
+app.get('/companyv2/tag_cloud', function(req, res) {
+    var q = Tags.find()
+    res.render('companyv2/tag_cloud', {
+	tag_cloud : tag_cloud
+    });
+});
+
+
 
 /*
  * Products
@@ -83,8 +87,6 @@ app.get('/companyv2/ajax', function(req, res) {
 app.get('/products', function(req, res) {
     res.json('ok');
 });
-
-
 
 
 /*
