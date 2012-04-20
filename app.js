@@ -17,8 +17,8 @@ var schema = require('./schema.js');
 
 var PlainCompany = mongoose.model('plain_company', schema.PlainSchema);
 var Product = mongoose.model('product', schema.StyleSchema);
-var ToolsLink = mongoose.model('tools_link', schema.ToolsLinksSchema);
-var Tools = mongoose.model('tools_category', schema.ToolsCategorySchema);
+// var ToolsLink = mongoose.model('tools_link', schema.ToolsLinksSchema);
+// var Tools = mongoose.model('tools_category', schema.ToolsCategorySchema);
 
 /*
  * Configuration
